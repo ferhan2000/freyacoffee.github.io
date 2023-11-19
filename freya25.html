@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Yiyecek Siparişi</title>
+  <style>
+    img {
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hoş Geldiniz!</h1>
+  
+  <h2>Kahve Seçenekleri:</h2>
+  <img src="https://i.nefisyemektarifleri.com/2023/04/27/americano-kahve-nedir-nasil-yapilir-9-faydasi.jpg" alt="Sade Kahve - $5" onclick="ekleFiyat('kahve1')">
+  <img src="https://i.lezzet.com.tr/images-xxlarge-secondary/latte-nedir-nasil-yapilir-63a67490-83ad-4a8c-a76a-dcb04e398985.jpg" alt="Latte - $7" onclick="ekleFiyat('kahve2')">
+  
+  <h2>Sandviç Seçenekleri:</h2>
+  <img src="https://i.imgur.com/tAUXYwq.jpg" alt="Peynirli Sandviç - $8" onclick="ekleFiyat('sandvic1')">
+  <img src="https://i.imgur.com/FqSppga.jpg" alt="Tavuklu Sandviç - $9" onclick="ekleFiyat('sandvic2')">
+  
+  <h2>Tatlı Seçenekleri:</h2>
+  <img src="https://bagpastaneleri.com/wp-content/uploads/2022/11/bag-urun-sablonu-SANSEBASTIAN-copy.png" alt="Muffin - $4" onclick="ekleFiyat('tatli1')">
+  <img src="https://res.cloudinary.com/hsxfx8igq/image/upload/t_16x9_recipe_image,f_auto/v1608585894/13_vjwdhl.jpg" alt="Brownie - $5" onclick="ekleFiyat('tatli2')">
+  
+  <br><br>
+  <label for="instagram">Instagram Hesabınız:</label>
+  <input type="text" id="instagram" name="instagram">
+  <button onclick="indirimKoduAl()">Indirimi Öğren</button>
+  
+  <p id="toplamFiyat"></p>
+  <p id="siparisDetay"></p>
+
+  <script>
+    let secilenUrunler = {};
+
+    function ekleFiyat(urun) {
+      if (secilenUrunler[urun]) {
+        secilenUrunler[urun]++;
+      } else {
+        secilenUrunler[urun] = 1;
+      }
+      hesapla();
+    }
+
+    function azaltFiyat(urun) {
+      if (secilenUrunler[urun] && secilenUrunler[urun] > 0) {
+        secilenUrunler[urun]--;
+      }
+      hesapla();
+    }
+
+    function indirimKoduAl() {
+      var instagramHesabi = document.getElementById('instagram').value;
+      // İndirim kodunu gönderme işlemleri burada yapılabilir
+      alert("Teşekkürler! Size Instagram üzerinden geri dönüş yapacağız: " + instagramHesabi);
+    }
+
+    function hesapla() {
+      let toplamFiyat = 0;
+      let siparisDetay = "";
+      for (let urun in secilenUrunler) {
+        if (urun === 'kahve1') {
+          toplamFiyat += secilenUrunler[urun] * 5;
+          siparisDetay += `Sade Kahve: ${secilenUrunler[urun]} adet<br>`;
+        } else if (urun === 'kahve2') {
+          toplamFiyat += secilenUrunler[urun] * 7;
+          siparisDetay += `Latte: ${secilenUrunler[urun]} adet<br>`;
+        } else if (urun === 'sandvic1') {
+          toplamFiyat += secilenUrunler[urun] * 8;
+          siparisDetay += `Peynirli Sandviç: ${secilenUrunler[urun]} adet<br>`;
+        } else if (urun === 'sandvic2') {
+          toplamFiyat += secilenUrunler[urun] * 9;
+          siparisDetay += `Tavuklu Sandviç: ${secilenUrunler[urun]} adet<br>`;
+        } else if (urun === 'tatli1') {
+          toplamFiyat += secilenUrunler[urun] * 4;
+          siparisDetay += `Muffin: ${secilenUrunler[urun]} adet<br>`;
+        } else if (urun === 'tatli2') {
+          toplamFiyat += secilenUrunler[urun] * 5;
+          siparisDetay += `Brownie: ${secilenUrunler[urun]} adet<br>`;
+        }
+        // Diğer ürünlerin fiyatları da buraya eklenebilir.
+      }
+      document.getElementById('toplamFiyat').innerHTML = "Toplam Fiyat: $" + toplamFiyat.toFixed(2);
+      document.getElementById('siparisDetay').innerHTML = siparisDetay;
+    }
+  </script>
+</body>
+</html>
